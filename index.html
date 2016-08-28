@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" ng-app="todo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=414px,user-scalable=no">
+    <title>todos</title>
+    <link rel="stylesheet" href="css/index.css">
+   <script src="js/jquery.js"></script>
+    <!--<script src="js/index.js"></script>&ndash;&gt;-->
+    <script src="js/angular.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-controller="mainCtrl" >
+
+    <div class="todos">
+        <h1 >{{head}}</h1>
+        <div class="todo">
+            <div class="header">
+                <input type="text" placeholder="What needs to be done?" ng-model="name" ng-keyup="add($event);save()">
+            </div>
+            <ul class="content" ng-init="tiaojian=''">
+                <li  ng-dblclick="ed=true;focus($event)" ng-class="{bianji:ed,wangcheng:v.isDone}" ng-init="ed=false" class="inner" ng-repeat="v in content |filter:{isDone:tiaojian} track by v.id">
+                    <div class="check" ng-click="v.isDone=!v.isDone;save()"></div>
+                    <p>{{v.name}}</p>
+                    <input  ng-blur="ed=false" type="text" ng-model="v.name" ng-change="save()">
+                    <div class="delete" ng-click="delete(v.id);save()"></div>
+                </li>
+            </ul>
+           <!-- <ul class="content">
+                <li  ng-dblclick="addClass($event)"  class="inner" ng-repeat="v in content">
+                    <div class="check"></div>
+                    <p>{{v.name}}</p>
+                    <input   type="text" ng-model="v.name">
+                    <div class="delete"></div>
+                </li>
+            </ul>-->
+            <ul class="footer">
+                <li class="lenght"><p ng-bind="(content|filter:{isDone:tiaojian}).length"></p><span >time left</span></li>
+                <li class="inner">
+                    <div class="box"  ng-class="{red:(tiaojian==='')}" ng-click="tiaojian='';">All</div>
+                    <div class="active" ng-class="{red:(tiaojian===false)}" ng-click="tiaojian=false;">Active</div>
+                    <div class="Completed" ng-class="{red:(tiaojian===true)}" ng-click="tiaojian=true;">complete</div>
+                </li>
+                <li ng-click="clear();save()"> Clear completed</li>
+            </ul>
+            <h2>{{title}}</h2>
+        </div>
+        <div class="text">
+        <p>click to edit a todo</p>
+        <p>Created by Zhang Yongli</p>
+        <!--<p>Part of TodoMVC</p>-->
+        </div>
+    </div>
+</body>
+</html>
